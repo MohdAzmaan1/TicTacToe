@@ -85,6 +85,7 @@ public class TicTacToe implements ActionListener{
     }
     public void firstTurn(){
         try{
+            textfield.setText("Loading....");
             Thread.sleep(1000);
         } catch (InterruptedException e){
             e.printStackTrace();
@@ -95,6 +96,17 @@ public class TicTacToe implements ActionListener{
         }else{
             player1_turn=false;
             textfield.setText(("O Turn"));
+        }
+    }
+    public void gameOver(String s){
+        Object[] option={"Restart","Exit"};
+        int n=JOptionPane.showOptionDialog(frame, "Game Over\n"+s,"Game Over",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,option,option[0]);
+        if(n==0){
+            frame.dispose();
+            new TicTacToe();
+        }
+        else{
+            frame.dispose();
         }
     }
     public void check(){
@@ -157,6 +169,7 @@ public class TicTacToe implements ActionListener{
         for(int i=0;i<9;i++){
             buttons[i].setEnabled(false);
         }
+        gameOver("X is the winner");
     }
     public void owin(int a,int b,int c){
         buttons[a].setBackground(Color.RED);
@@ -166,6 +179,7 @@ public class TicTacToe implements ActionListener{
         for(int i=0;i<9;i++){
             buttons[i].setEnabled(false);
         }
+        gameOver("O is the winner");
     }
     public void draw(){
         int count=0;
@@ -173,7 +187,8 @@ public class TicTacToe implements ActionListener{
         if(buttons[i].getText()!="")
         count++;
         if(count==9){
-            textfield.setText("Draw");
+            textfield.setText("Match is draw");
+            gameOver("Match is draw");
         for(int j=0;j<9;j++){
             buttons[j].setEnabled(false);
             }
